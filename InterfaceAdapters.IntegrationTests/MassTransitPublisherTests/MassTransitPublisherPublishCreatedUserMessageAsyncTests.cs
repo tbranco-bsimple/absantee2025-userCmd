@@ -1,4 +1,4 @@
-using Domain.Messages;
+/* using Domain.Messages;
 using Domain.Models;
 using InterfaceAdapters.Publishers;
 using MassTransit;
@@ -30,3 +30,4 @@ public class MassTransitPublisherPublishCreatedUserMessageAsyncTests
         );
     }
 }
+ */

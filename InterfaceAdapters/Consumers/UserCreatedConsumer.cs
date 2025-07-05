@@ -1,4 +1,3 @@
-using Application.Services;
 using Domain.Messages;
 using MassTransit;
 
@@ -13,6 +12,7 @@ public class UserCreatedConsumer : IConsumer<UserCreatedMessage>
     public async Task Consume(ConsumeContext<UserCreatedMessage> context)
     {
         var msg = context.Message;
+        Console.WriteLine("[DEBUG] UserCreatedConsumer");
         await _userService.AddConsumed(msg.Id, msg.Names, msg.Surnames, msg.Email, msg.PeriodDateTime);
     }
 }

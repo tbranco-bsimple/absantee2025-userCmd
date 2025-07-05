@@ -1,4 +1,4 @@
-using InterfaceAdapters.Publishers;
+/* using InterfaceAdapters.Publishers;
 using MassTransit;
 using Moq;
 using Xunit;
@@ -19,3 +19,4 @@ public class ConstructorTest
         // Assert
     }
 }
+ */

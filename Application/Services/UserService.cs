@@ -35,6 +35,18 @@ public class UserService : IUserService
         return _mapper.Map<User, UserDTO>(user);
     }
 
+    public async Task<UserDTO> AddFromCollab(UserFromCollabDTO userDTO, Guid CollaboratorId, string instanceId)
+    {
+        var user = await _userFactory.Create(userDTO.Names, userDTO.Surnames, userDTO.Email, userDTO.DeactivationDate);
+        await _userRepository.AddAsync(user);
+        await _userRepository.SaveChangesAsync();
+
+        await _publisher.SendCreatedUserFromCollabMessageAsync(instanceId, user.Id, CollaboratorId, user.Names, user.Surnames, user.Email, user.PeriodDateTime);
+        await _publisher.PublishCreatedUserMessageAsync(user.Id, user.Names, user.Surnames, user.Email, user.PeriodDateTime);
+
+        return _mapper.Map<User, UserDTO>(user);
+    }
+
     public async Task<IEnumerable<IUser>> GetAll()
     {
         var User = await _userRepository.GetAllAsync();
@@ -83,4 +95,5 @@ public class UserService : IUserService
         await _userRepository.AddAsync(user);
         await _userRepository.SaveChangesAsync();
     }
+
 }
