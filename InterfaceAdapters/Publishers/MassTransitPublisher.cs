@@ -21,9 +21,9 @@ public class MassTransitPublisher : IMessagePublisher
         await _publishEndpoint.Publish(new UserCreatedMessage(id, names, surnames, email, periodDateTime));
     }
 
-    public async Task SendCreatedUserFromCollabMessageAsync(string InstanceId, Guid id, Guid collaboratorId, string names, string surnames, string email, PeriodDateTime periodDateTime)
+    public async Task SendCreatedUserFromCollabMessageAsync(Guid correlationId, string instanceId, Guid userId, Guid collaboratorId, string names, string surnames, string email, PeriodDateTime periodDateTime)
     {
-        var endpoint = await _sendEndpoint.GetSendEndpoint(new Uri($"queue:collaborators-cmd-{InstanceId}"));
-        await endpoint.Send(new UserFromCollaboratorCreatedMessage(id, collaboratorId, names, surnames, email, periodDateTime));
+        var endpoint = await _sendEndpoint.GetSendEndpoint(new Uri($"queue:collaborators-cmd-{instanceId}"));
+        await endpoint.Send(new UserFromCollaboratorCreatedMessage(correlationId, userId, collaboratorId, names, surnames, email, periodDateTime));
     }
 }

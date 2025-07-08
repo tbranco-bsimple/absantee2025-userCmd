@@ -13,8 +13,8 @@ public class CreateUserFromCollaboratorConsumer : IConsumer<CreateUserFromCollab
     public async Task Consume(ConsumeContext<CreateUserFromCollaboratorCommand> context)
     {
         var msg = context.Message;
-        Console.WriteLine("[DEBUG] CreateUserFromCollaboratorConsumer : " + context.Message);
+        Console.WriteLine("[DEBUG] CreateUserFromCollaboratorConsumer : " + msg.CorrelationId);
         var userDto = new UserFromCollabDTO(msg.Names, msg.Surnames, msg.Email, msg.DeactivationDate);
-        await _userService.AddFromCollab(userDto, msg.Id, msg.InstanceId);
+        await _userService.AddFromCollab(userDto, msg.Id, msg.CorrelationId, msg.InstanceId);
     }
 }
