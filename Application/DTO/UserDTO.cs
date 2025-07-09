@@ -14,4 +14,12 @@ public record UserDTO
     public UserDTO()
     {
     }
+
+    public UserDTO(string names, string surnames, string email, DateTime finalDate)
+    {
+        Names = names;
+        Surnames = surnames;
+        Email = email;
+        FinalDate = finalDate;
+    }
 }
